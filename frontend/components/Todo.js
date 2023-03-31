@@ -4,9 +4,11 @@ export default class Todo extends React.Component {
   render() {
     return (
     <>
-        <li>Walk the Dog</li>
+      <ul>
+        
         <li>Play Basketball</li>
         <li>Hop over the frogs</li>
+      </ul>
     </>
     )
   }

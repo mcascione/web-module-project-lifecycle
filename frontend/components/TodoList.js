@@ -6,9 +6,7 @@ export default class TodoList extends React.Component {
     return (
       <>
         <h1>Todos:</h1>
-        <ul>
-          <Todos />
-        </ul>
+         <Todos />
       </>
     )
   }
