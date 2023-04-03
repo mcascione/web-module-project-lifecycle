@@ -1,43 +1,70 @@
 import React from 'react';
-import TodoList from './Todo';
-import Form from './Form';
 import axios from 'axios';
 
 const URL = 'http://localhost:9000/api/todos'
 
 export default class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      todos: []
-    }
+  state = {
+    todos: [],
+    error: '',
+    todoNameInput: ''
+  }
+
+  onTodoNameInputChange = evt => {
+    const { value } = evt.target
+    this.setState({ ...this.state, todoNameInput:value })
+  }
+
+  postNewTodo = () => {
+    axios.post(URL, { name: this.state.todoNameInput })
+      .then(res => {
+        this.fetchAllTodos()
+        this.setState({ ...this.state, todoNameInput: "" })
+      })
+      .catch(err => {
+        this.setState({ ...this.state, error: err.response.data.message })
+      })
+  }
+
+  onTodoFormSubmit = evt => {
+    evt.preventDefault();
+    this.postNewTodo();
   }
 
   fetchAllTodos = () => {
     axios.get(URL)
       .then(res => {
-        this.setState( {...this.state, todos: res.data.data} )
+        this.setState({ ...this.state, todos: res.data.data })
       })
       .catch(err => {
-        debugger
+        this.setState({ ...this.state, error: err.response.data.message })
       })
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.fetchAllTodos();
-    console.log(URL.message);
   }
 
   render() {
     return (
-      <>
-      {this.state.todos.map(td => {
-          return (<div key={td.id}>{td.name}</div>)
-        })}
-      <TodoList />
-      <Form />
-        <button>Remove Completed Tasks</button>
-      </>
+      <div>
+        <div id="error">Error:{this.state.error}</div>
+        <div id="todos">
+          <h2>Todos:</h2>
+          <div>Walk the Dog</div>
+          <div>Clean your Room √</div>
+          {
+            this.state.todos.map(td => {
+              return <div key={td.id}>{td.name}</div>
+            })
+          }
+        </div>
+        <form id="todoForm" onSubmit={this.onTodoFormSubmit}>
+          <input value={this.state.todoNameInput} onChange={this.onTodoNameInputChange} type="text" placeholder="type todo"></input>
+          <input type="submit"></input>
+          <button>Clear Completed</button>
+        </form>
+      </div>
     )
   }
 }

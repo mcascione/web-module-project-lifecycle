@@ -1,13 +1,17 @@
-import React from 'react'l
-import Todos from './Todo';
+// import React from 'react'l
+// import Todos from './Todo';
 
-export default class TodoList extends React.Component {
-  render() {
-    return (
-      <>
-        <h1>Todos:</h1>
-         <Todos />
-      </>
-    )
-  }
-}
+// export default class TodoList extends React.Component {
+//   render() {
+//     return (
+//       <>
+//         <h1>Todos:</h1>
+//         {
+//         this.props.todos.map(td => {
+//             return (<div key={td.id}>{td.name}</div>)
+//         })
+//         }
+//       </>
+//     )
+//   }
+// }
