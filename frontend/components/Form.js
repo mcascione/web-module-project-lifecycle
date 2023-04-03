@@ -1,31 +1,25 @@
-// import React from 'react'
-
-// export default class Form extends React.Component {
-
-//   constructor(){
-//     super();
-//     this.state = {
-//       input: ''
-//     }
-//   } 
-
-//   // onTodoNameInputChange = (e) => {
-//   //   const { value } = e.target
-//   //   this.setState({ ...this.state, todoNameInput: value })
-//   // }
-
-//   // onSubmit = (e) => {
-//   //   e.preventDefault();
-//   //   this.props.postNewTodo();
-//   // }
+import React from 'react'
 
 
-//   render() {
-//     return (
-//       // <form id="todoForm" onSubmit = {this.onSubmit}>
-//       //     <input type="text" value={this.props.todoNameInput} onChange={this.onTodoNameInputChange}/>
-//       //     <button>Add New Task</button>
-//       //   </form>
-//     )
-//   }
-// }
+export default class Form extends React.Component {
+    render() {
+     return (
+      <>
+        <form id="todoForm" onSubmit={this.props.onTodoFormSubmit}>
+          <input 
+            value={this.props.todoNameInput} 
+            onChange={this.props.onTodoNameInputChange} 
+            type="text" 
+            placeholder="type todo">
+        </input>
+        <input type="submit"></input>
+        </form>
+        <button 
+            onClick={this.props.toggleDisplayCompleteds}
+        >
+             {this.props.displayCompleteds ? "Hide" : "Show" } Completed
+        </button>
+      </>
+    )
+  }
+}
